@@ -1,0 +1,57 @@
+{% extends 'basei.html' %}
+
+{% block title %} Crear Evento {% endblock %}
+{%block eventosactivo%}active{%endblock%}
+
+{% block panelheading %} Crear Evento{% endblock %}
+{% block content %}
+<div class="col-md-offset-3 col-md-6">
+<form action="." method="POST">
+	{% csrf_token %}
+	{%for f in form%}
+		{%if f.html_name == 'fecha' %}
+        <div class="form-group">
+            <div class="input-group date form_datetime" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                {{f}}
+                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+            </div>
+            <input type="hidden" id="dtp_input1" value="" /><br/>
+        </div>
+		{%else%}
+		<p>{{f.errors}} {{f.label_tag}} {{f}} {{f.help_text}}</p>
+		{%endif%}
+	{%endfor%}
+	<input class="btn btn-primary" type="submit" value="Crear"/>
+	<input class="btn btn-primary" type="reset" value="Limpiar"/>
+</form>
+</div>
+
+    <script type="text/javascript">
+    function hoy(){
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        var hh = today.getHours();
+        var ii = today.getMinutes();
+
+        if(dd<10) {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) {
+            mm='0'+mm;
+        } 
+
+        today = yyyy + '-' + mm + '-' + dd + ' ' + hh +':' + ii;
+        return today
+    }
+    $(".form_datetime").datetimepicker({
+        pickerPosition: "bottom-left",
+        todayHighlight: true,
+        startDate: hoy()
+    });
+    </script> 
+
+{% endblock %}

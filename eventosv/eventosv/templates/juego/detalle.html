@@ -1,0 +1,32 @@
+
+
+{% extends 'basei.html' %}
+
+{% block title %} Detalle de juego {% endblock %}
+
+{%block juegosactivo%}active{%endblock%}
+
+{% block panelheading %} Detalle de {{object.nombre}}{% endblock %}
+{% block content %}
+
+
+<p>Id:{{ object.id }}</p>
+
+<p>nombre:{{ object.nombre}}</p>
+<p>descripcion:{{ object.descripcion}}</p>
+<div> 
+	<object type="text/html" data="{{ object.url}}" width="100%" height="720px"  >
+	</object>
+</div>
+<p>portada:{{ object.portada}}</p>
+<p>plataforma:{{ object.plataforma }}</p>
+
+.
+.
+.
+Y los demas detalles
+
+
+
+
+{% endblock %}

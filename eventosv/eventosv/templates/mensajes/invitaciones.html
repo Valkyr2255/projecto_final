@@ -1,0 +1,128 @@
+
+
+
+                    <li class="message-preview">
+                        <a href="#">
+                            <div class="media">
+                                <span class="pull-left">
+                                    <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                </span>
+                                <div class="media-body">
+                                    <h5 class="media-heading"><strong>John Smith</strong>
+                                    </h5>
+                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="message-preview">
+                        <a href="#">
+                            <div class="media">
+                                <span class="pull-left">
+                                    <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                </span>
+                                <div class="media-body">
+                                    <h5 class="media-heading"><strong>John Smith</strong>
+                                    </h5>
+                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="message-preview">
+                        <a href="#">
+                            <div class="media">
+                                <span class="pull-left">
+                                    <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                </span>
+                                <div class="media-body">
+                                    <h5 class="media-heading"><strong>John Smith</strong>
+                                    </h5>
+                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="message-footer">
+                        <a href="#">Read All New Messages</a>
+                    </li>
+
+
+
+
+
+
+
+
+
+
+    <!-- SCRIPTs de los web Services-->
+    <script type="text/javascript">
+    $(document).on('ready',function() {
+        $.ajax( {
+            type:"GET",
+            contentType:"application/json; charset=utf-8",
+            dataType:"json",
+            url:"/webService/invitaciones/",
+            success:function(response){
+                var i = 0;
+                $('#Mensajes').append("<h4>"+"Invitaciones"+"</h4>");
+                for (i;i<=(response.i.length - 1);i++){
+
+
+                    $('#Mensajes').append(
+                        '<li class="message-preview">'+
+
+                        '<div class="media">'+
+                        '<span class="pull-left">'+
+                        '<img class="media-object" src="http://placehold.it/50x50" alt="">'+
+                        '</span>'+
+                        '<div class="media-body">'+
+                        '<h5 class="media-heading">Haz sido invitado a un nuevo evento: <strong>'+response.i[i].fields.titulo+'</strong>'+
+                        '</h5>'+
+                        '<p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>'+
+                        '<p>'+response[i].i.fields.descripcion+'</p>'+
+                        '<p><a href="/invitacion/state/'+response[i].pk+'">Ver invitacion...</a></p>'+
+                        '</div>'+
+                        '</div>'+
+
+                        '</li>'
+
+                        );
+
+                }
+            }
+        });
+});
+</script>
+
+
+
+
+
+
+                        <li>
+                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">View All</a>
+                        </li>

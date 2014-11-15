@@ -1,0 +1,91 @@
+{% extends 'basei.html' %}
+
+{% block title %} Lista de juegos {% endblock %}
+
+{%block juegosactivo%}active{%endblock%}
+
+{% block stylecss %}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}stylos.css">
+{% endblock %}
+
+{% block panelheading %} Juegos disponibles {% endblock %}
+{% block content %}
+
+<div class="col-md-offset-2 col-md-8">
+	<ul class="list-group">
+		{% for j in object_list %}
+		{%if user.is_authenticated%}
+		<li class="list-group-item">
+			<a href="/opinion/add/{{j.id}}/">¡Escribe tu propia opinion!</a>
+		</li>
+		{%endif%}
+		<li class="list-group-item">
+			<h2>{{j.nombre}}</h2><hr>
+			<div class="row">
+				<div class="col-md-4">
+					<img src="{{STATIC_URL}}{{j.portada}}" class="img-thumbnail">
+				</div>
+				<div class="col-md-8">
+					<h3>Fecha de lanzamiento: {{j.fecha_lanzamiento}}</h3>
+					<h3>Tipo: {{j.tipo}}</h3>
+					<h4>Plataformas:</h4>
+					<ul>
+						{%for p in j.plataformas.all%}
+						<li><h4>{{p}}</h4></li>
+						{%endfor%}
+					</ul>
+				</div>
+			</div>
+			<h4 class="text-justify">Descripción: {{j.descripcion}}</h4>
+
+			<h3>Opiniones</h3> <hr>
+			{% for o in la_opinion%}
+
+			{% if o.juego ==  j %}
+			<div class="row">
+				<div class="col-md-2">
+				{%if o.usuario.userprofile.imagen%}
+					<img src="{{STATIC_URL}}{{o.usuario.userprofile.imagen}}" height="50px" width="50px" class="img-thumbnail">
+				{%else%}
+					<img src="{{STATIC_URL}}/user/default.png" height="50px" width="50px" class="img-thumbnail">
+				{%endif%}
+				</div>
+				<div class="col-md-10">
+				<h4>{{o.usuario}} - 
+					{% if o.tipo ==  "Positiva" %}
+					<i class="p fa fa-thumbs-up"></i>
+					{%else%}
+					<i class="n fa fa-thumbs-down"></i>
+					{% endif %}
+				</h4>
+				</div>
+			</div>
+			<p>Opinion: {{o.opinion}}</p>
+
+			{% endif %}
+			{% empty %}
+			<h4>No hay opiniones, se el primero en opinar...</h4>
+
+			{% endfor %}
+
+		</li>
+
+		<br>
+		{% if user.is_superuser%}
+		<a href="/juego/update/{{j.pk}}/">
+			<p class="text-right"><button class="btn btn-danger" type="submit">Editar</button></p>
+		</a>
+
+		<a href="/juego/delete/{{j.pk}}/">
+			<p class="text-right"><button class="btn btn-danger" type="submit">Eliminar</button></p>
+		</a>
+		{%endif%}
+		{% empty %}
+		<h2>No hay Juegos</h2>
+		{% endfor %}
+	</ul>
+</div>
+
+{% endblock %}
+
+

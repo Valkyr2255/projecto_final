@@ -1,0 +1,24 @@
+{% extends 'basei.html' %}
+
+{% block title %} Crear Evento {% endblock %}
+
+{% block panelheading %} Crear Evento{% endblock %}
+{% block content %}
+<div class="container">
+<form class="col-xs-6" action="." method="POST">
+	{% csrf_token %}
+	{{form.as_p}}
+	<input class="btn btn-primary" type="submit" value="Crear"/>
+	<input class="btn btn-primary" type="reset" value="Limpiar"/>
+</form>
+
+
+</div>
+
+
+
+
+
+
+
+{% endblock %}

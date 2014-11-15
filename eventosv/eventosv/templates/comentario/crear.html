@@ -1,0 +1,28 @@
+{% extends 'basei.html' %}
+
+{% block title %} Crear Opinion {% endblock %}
+{%block juegosactivo%}active{%endblock%}
+
+{% block panelheading %}{{titulo}} (Opinión){% endblock %}
+{% block content %}
+
+<div class="col-md-3">
+	<p>Para mas información:</p>
+	<p><a href="/evento/detail/{{id}}">El detalle creo...</a></p>
+</div>
+
+<div class="col-md-6">
+<h2 class="text-center">Comenta aqui</h2>
+<ul class="list-group">
+	<li class="list-group-item">
+		<form action="#" method="POST">
+			{% csrf_token %}
+			{{form.as_p}}
+			<p class="text-right"><button class="btn btn-danger" type="submit">Comentar</button></p>
+		</form>
+	</li>
+</ul>
+
+</div>
+
+{% endblock %}

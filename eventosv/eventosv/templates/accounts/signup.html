@@ -1,0 +1,21 @@
+{% extends 'basei.html' %}
+
+{% block title %} Crear EventoRegister {% endblock %}
+
+{% block panelheading %} Registrarse{% endblock %}
+{% block content %}
+<div class="col-md-offset-3 col-md-6">
+
+<ul class="list-group">
+	<li class="list-group-item">
+		<form action="." method="POST">
+			{% csrf_token %}
+			{{form.as_p}}
+			<p class="text-right"><input class="btn btn-danger" type="submit" value="Registrarse"/></p>
+		</form>
+	</li>
+</ul>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'basei.html' %}
+
+{% block title %} Añadir Juego {% endblock %}
+{%block juegosactivo%}active{%endblock%}
+
+{% block panelheading %}Añadir Juego{% endblock %}
+{% block content %}
+
+<div class="col-md-offset-3 col-md-6">
+<ul class="list-group">
+	<li class="list-group-item">
+		<form action="." method="POST" enctype="multipart/form-data" >
+			{% csrf_token %}
+			{{form.as_p}}
+			<p class="text-right"><button class="btn btn-danger" type="submit">Crear</button></p>
+		</form>
+	</li>
+</ul>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos V - {% block title %}Titulo{% endblock %}</title>
+    <meta charset="utf-8">
+    
+
+    
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}sb-admin.css">
+    {% block stylecss %}
+    {% endblock %}
+</head>
+<body>
+
+    <script type="text/javascript" src="{{STATIC_URL}}jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/locales/bootstrap-datetimepicker.es.js"></script>
+
+
+    <!-- SCRIPTs de los web Services-->
+    <script type="text/javascript" src= "{{STATIC_URL}}webServices.js" ></script>
+
+
+
+
+
+
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!--<a class="navbar-brand" href="/ "> <img src="http://i61.tinypic.com/67i069.png" width="180"> </a>-->
+                <a class="navbar-brand" href="/ "> <img src="http://i58.tinypic.com/2ch01mv.png" width="180"> </a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                    <ul id="Mensajes" class="dropdown-menu message-dropdown">
+
+                        <!-- Aqui se despiegan los mensajes-->
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Alertas<b class="caret"></b></a>
+                    <ul id="Alertas" class="dropdown-menu alert-dropdown">
+
+
+
+
+
+
+                    </ul>
+                </li>
+                {% if user.is_superuser%}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i> Admin<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="/juego/add/">Añadir Juego</a>
+                            <a href="/juego/list/">Editar/Eliminar Juego</a>
+                            <a href="/plataforma/add/">Añadir Plataforma</a>
+                            <a href="/plataforma/list/">Editar/Eliminar Plataforma</a>
+                            <a href="#">Crear Admin</a>
+                        </li>
+                    </ul>
+                </li>
+                {%endif%}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{user}}<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        {%if user.is_authenticated %}
+                        <li>
+
+                            <a href="/accounts/profile/{{user.pk}}/"><i class="fa fa-fw fa-user"></i> Mi Perfil</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/accounts/logout/"><i class="fa fa-fw fa-sign-out"></i> Cerrar Sesión</a>
+                        </li>
+                        {%else%}
+                        <li>
+                            <a href="/accounts/login/"><i class='fa fa-fw fa-sign-in'></i> Iniciar Sesión</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/accounts/register"><i class='fa fa-fw fa-pencil'></i> Registrarse</a>
+                        </li>
+                        {%endif%}
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="{%block inicioactivo%}{%endblock%}">
+                        <a href="/"><i class="fa fa-fw fa-home"></i> Inicio</a>
+                    </li>
+                    <li class="{%block juegosactivo%}{%endblock%}">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-fw fa-gamepad"></i> Juegos <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo1" class="collapse">
+                            <li><a href="/juego/completos">Juegos Completos</a></li>
+                            <li><a href="/juego/mods">Mods</a></li>
+                            <li><a href="/juego/list/">Todos</a></li>
+                        </ul>
+                    </li>
+                    <li class="{%block eventosactivo%}{%endblock%}">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-calendar"></i> Eventos <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo2" class="collapse">
+                            <li><a href="#">Hoy</a></li>
+                            <li><a href="#">En 7 dias</a></li>
+                            <li><a href="/evento/list/">Todos (Publicos)</a></li>
+                            <li><a href="/evento/add/">Crear Evento</a></li>
+                        </ul>
+                    </li>
+                    <li class="{%block ventasactivo%}{%endblock%}">
+                        <a href="#"><i class="fa fa-fw fa-briefcase"></i> Ventas</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <!-- Bloque de contenido -->
+        <div id="page-wrapper">
+            <div class="container-fluid contenido">
+                <h1>{% block panelheading %} titulo panel{% endblock %}</h1><hr>
+                {% block content %}		
+                <h1>Hola esta es la plantilla Base.html!</h1>
+
+                {% endblock %}
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+</html>

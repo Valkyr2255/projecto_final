@@ -1,0 +1,36 @@
+{% extends 'basei.html' %}
+
+{% block title %} Lista de platafromas {% endblock %}
+
+{% block panelheading %} Plataformas disponibles {% endblock %}
+{% block content %}
+
+<div class="col-md-offset-2 col-md-8">
+	<ul class="list-group">
+		{% for p in object_list %}
+
+		<li class="list-group-item">
+			<h2>{{p.nombre}}</h2><hr>
+		</li>
+
+		{% if user.is_superuser%}
+		<a href="/plataforma/update/{{p.pk}}/">
+			<p class="text-right"><button class="btn btn-danger" type="submit">Editar</button></p>
+		</a>
+
+		<a href="/plataforma/delete/{{p.pk}}/">
+			<p class="text-right"><button class="btn btn-danger" type="submit">Eliminar</button></p>
+		</a>
+		{%endif%}
+		{% empty %}
+		<h2>No hay Plataformas</h2>
+		{% endfor %}
+	</ul>
+</div>
+
+
+{% endblock %}
+
+
+
+

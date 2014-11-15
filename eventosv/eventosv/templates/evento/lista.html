@@ -1,0 +1,102 @@
+{% extends 'basei.html' %}
+
+{% block title %} Lista de eventos publicos {% endblock %}
+
+{%block eventosactivo%}active{%endblock%}
+
+{% block stylecss %}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}stylos.css">
+{% endblock %}
+
+{% block panelheading %} Eventos publicos {% endblock %}
+{% block content %}
+
+<div class="col-md-offset-2 col-md-8">
+	<ul class="list-group">
+		{% for e in object_list %}
+
+		<li class="list-group-item">
+			<h2><a href="/evento/detail/{{e.id}}/">{{e.titulo}}</a></h2>
+			<h4 class="text-right">
+				{% if e.privado ==  True %}
+				<i class="fa fa-lock"></i>
+				{%else%}
+				<i class="fa fa-unlock"></i>
+				{%endif%}
+
+				creado por {{e.creador}}</h4><hr>
+
+				<div class="row">
+
+					<div class="col-md-8">
+						<h3>Juego: <a href="/juego/detail/{{e.juego.id}}/">{{e.juego}}</a></h3>
+
+						<h3>Plataforma: {{e.plataforma}}</h3>
+						<h3>Espacios: {{e.espacios }}</h3>
+						<h4>Invitados:</h4>
+						<ul>
+							{%for i in e.invitados.all%}
+							<li><h4>{{i}}</h4></li>
+							{%endfor%}
+						</ul>
+						<h4>Confirmados:</h4>
+						<ul>
+							{%for c in e.confirmados.all%}
+							<li><h4>{{c}}</h4></li>
+							{%endfor%}
+						</ul>
+						<h3>Fecha del evento: {{e.fecha}}</h3>
+					</div>
+				</div>
+				<h4 class="text-justify">Descripción: {{e.descripcion}}</h4>
+
+				<h3>Comentarios</h3> <hr>
+				{% for c in el_comentario%}
+
+				{% if c.evento ==  e %}
+				<div class="row">
+					<div class="col-md-2">
+					{%if o.usuario.userprofile.imagen%}
+						<img src="{{STATIC_URL}}{{o.usuario.userprofile.imagen}}" height="50px" width="50px" class="img-thumbnail">
+					{%else%}
+						<img src="{{STATIC_URL}}/user/default.png" height="50px" width="50px" class="img-thumbnail">
+					{%endif%}
+					</div>
+					<div class="col-md-10">
+						<h4> <strong>{{c.usuario}} - dijo: </strong></h4>
+					</div>
+				</div>
+				<p>  {{c.comentario}}</p>
+
+				{% endif %}
+				{% empty %}
+				<h4>No hay comentarios, se el primero en comentar...</h4>
+
+				{% endfor %}
+				{%if user.is_authenticated%}
+				<li class="list-group-item">
+					<a href="/comentario/add/{{e.id}}/">¡Comenta...!</a>
+					{%if user not in e.invitados.all and user not in e.confirmados.all%}
+					<a href="/evento/join/{{e.id}}" class="pull-right">Unete al evento</a>
+					{%endif%}
+				</li>
+				{%endif%}
+
+			</li>
+
+			<br>
+			{% if user.is_superuser%}
+
+			<a href="/evento/delete/{{e.pk}}/">
+				<p class="text-right"><button class="btn btn-danger" type="submit">Eliminar</button></p>
+			</a>
+			{%endif%}
+			{% empty %}
+			<h2>No hay Eventos</h2>
+			{% endfor %}
+		</ul>
+	</div>
+
+	{% endblock %}
+
+

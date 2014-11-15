@@ -1,0 +1,100 @@
+
+
+{% extends 'basei.html' %}
+
+{% block title %} Detalle de Evento {% endblock %}
+{%block eventosactivo%}active{%endblock%}
+
+{% block panelheading %} Detalle de Evento{% endblock %}
+{% block content %}
+
+
+
+<h2 class="text-center col-md-offset-3 col-md-6">{{object.titulo}}</h2>
+
+<div class="row">
+	<div class="col-md-6">
+		<h4 class="text-left">Fecha del evento: {{object.fecha}}</h4>
+	</div>
+	<div class="col-md-6">
+		<h4 class="text-right">
+			{% if object.privado ==  True %}
+			<i class="fa fa-lock"></i>
+			{%else%}
+			<i class="fa fa-unlock"></i>
+			{%endif%}
+			creado por {{object.creador}}</h4>
+		</div>
+	</div>
+	<br>
+	<div class="col-md-3">
+		<h4>Cupo:{{ object.espacios }}</h4>
+		<h3>Invitados</h3><hr>
+		<ul>
+			{%for i in object.invitados.all%}
+			<li>{{i}}</li>
+			{%empty%}
+			<li>No hay invitados</li>
+			{%endfor%}
+		</ul>
+		<h3>Confirmados</h3><hr>
+		<ul>
+			{%for c in object.confirmados.all%}
+			<li>{{c}}</li>
+			{%empty%}
+			<li>No hay confirmados</li>
+			{%endfor%}
+		</ul>
+		<br>
+		<h5>Permiso para entrar: {{object.permiso_para_entrar}}</h5>
+	</div>
+
+	<div class="col-md-6">
+		<h4>Descripción: {{object.descripcion}}</h4>
+		{%if user in object.confirmados.all%}
+		<h4>Mensaje secreto: {{object.mensaje_secreto}}</h4>
+		{%endif%}
+	</div>
+
+	<div class="col-md-3">
+		<h3>Juego</h3><hr>
+		<ul>
+			<li><a href="/juego/detail/{{object.juego.id}}/">{{object.juego}}</a></li>
+		</ul>
+		<h3>Plataforma</h3><hr>
+		<ul>
+			<li>{{object.plataforma}}</li>
+		</ul>
+	</div>
+
+
+
+
+
+
+
+
+	{%for i in la_invi %}
+<!-- si el evento de la invitacion es igual a el evento actual, y el invitado es el usuario, y el usuario esta invitado... -->
+	{%if i.evento == object and i.invitado == user and user in object.invitados.all%}
+
+
+			<a href="/invitacion/state/{{i.id}}/">
+				<p class="text-left"><button class="btn btn-danger" type="submit">Responder a la Invitacion</button></p>
+			</a>
+
+
+
+	{%endif%}
+
+	{%empty%}
+	<li>No estas invitado</li>
+	{%endfor%}
+
+
+
+
+
+
+
+	{% endblock %}

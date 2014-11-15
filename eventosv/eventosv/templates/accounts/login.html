@@ -1,0 +1,67 @@
+{% extends 'basei.html' %}
+
+{% block title %} Login {% endblock %}
+
+
+{% block stylecss %}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}stylos.css">
+{% endblock %}
+
+{% block panelheading %} Iniciar Sesión{% endblock %}
+{% block content %}
+
+<div class="col-md-offset-3 col-md-6">
+
+{%if form.errors %}
+<div class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <strong>¡Error!</strong> Favor de revisar los datos proporcionados.
+</div>
+{%endif%}
+<ul class="list-group">
+	<li class="list-group-item">
+			<form action="." method="POST" id="login">
+				{% csrf_token %}
+				<div class="form-group">
+					<label>Usuario:</label>
+					<div class="input-group">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+						{{form.username}}
+					</div>
+				</div>
+				<div class="form-group">
+					<label>Contraseña: </label>
+					<div class="input-group">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+						{{form.password}}
+					</div>
+				</div>
+
+			</form>
+			<p class="text-right"><button class="btn btn-danger" type="submit" form="login">Iniciar Sesión</button></p>
+
+		
+
+	</li>
+
+
+
+	<li class="list-group-item">
+		<h4 class="text-center">¿No tienes una cuenta en Eventos V? <a href="/accounts/register/">Registrate</a></h4>
+	</li>
+
+
+
+	<li class="list-group-item text-center">
+		<h4>Tambien puedes iniciar sesión con:</h4>
+		<div class="sociales">
+			<a class="login facebook" href=" {% url 'social:begin' 'facebook' %}"><i class="fa fa-facebook-square" ></i></a>
+			<a class="login twitter" href=" {% url 'social:begin' 'twitter' %}"><i class="fa fa-twitter-square"></i></a>
+			<a class="login google" href=" {% url 'social:begin' 'google' %}"><i class="fa fa-google-plus-square" ></i></a>
+<!--Solo me funka en firefox 	"fa fa-google" -->
+		</div>
+	</li>
+
+</ul>
+</div>
+{% endblock %}

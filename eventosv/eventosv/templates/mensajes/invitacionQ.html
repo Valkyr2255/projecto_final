@@ -1,0 +1,22 @@
+{% extends 'basei.html' %}
+
+{% block title %} Invitaciones Pendientes {% endblock %}
+
+
+{% block panelheading %} Aceptar/Rechazar Invitacion{% endblock %}
+{% block content %}
+<div class="container">
+<form class="col-xs-6" action="." method="POST">
+	{% csrf_token %}
+	{{form.as_p}}
+	<input class="btn btn-primary" type="submit" value="Lsito"/>
+	<input class="btn btn-primary" type="reset" value="Limpiar"/>
+</form>
+
+
+</div>
+
+
+
+
+{% endblock %}
